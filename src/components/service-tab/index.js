@@ -105,7 +105,7 @@ function ServiceTab() {
               {`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")}`}
             </DialogContentText>
             <Grid container spacing={3}>
-              <Grid item sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 <TextField
                   autoFocus
                   margin="dense"
@@ -119,7 +119,7 @@ function ServiceTab() {
                   required
                 />
               </Grid>
-              <Grid item sm={12} md={12}>
+              <Grid item xs={12} sm={12} md={12}>
                 <TextField
                   margin="dense"
                   id="description"
@@ -133,7 +133,7 @@ function ServiceTab() {
                   fullWidth
                 />
               </Grid>
-              <Grid item sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 {/* <FormControl> */}
                 <InputLabel htmlFor="server-label">Server</InputLabel>
                 <Select
@@ -154,7 +154,7 @@ function ServiceTab() {
                 </Select>
                 {/* </FormControl> */}
               </Grid>
-              <Grid item sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 <TextField
                   margin="dense"
                   id="osVersion"
@@ -167,7 +167,7 @@ function ServiceTab() {
                   required
                 />
               </Grid>
-              <Grid item sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 {/* <TextField
                     margin="dense"
                     id="patchDate"
@@ -192,7 +192,7 @@ function ServiceTab() {
                   required
                 />
               </Grid>
-              <Grid item sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 <FormControl component="fieldset">
                   <FormLabel component="legend">
                     Application Team Approval needed
@@ -218,7 +218,7 @@ function ServiceTab() {
                   </RadioGroup>
                 </FormControl>
               </Grid>
-              <Grid item sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 <InputLabel htmlFor="approval-status-label">
                   Approval Status
                 </InputLabel>
@@ -242,7 +242,7 @@ function ServiceTab() {
                   <option value="denied">Denied</option>
                 </Select>
               </Grid>
-              <Grid item sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 <TextField
                   margin="dense"
                   id="approverName"
@@ -255,7 +255,7 @@ function ServiceTab() {
                   required
                 />
               </Grid>
-              <Grid item sm={12} md={6}>
+              <Grid item xs={12} sm={12} md={6}>
                 <TextField
                   margin="dense"
                   id="approverEmail"
@@ -323,7 +323,7 @@ function ServiceTab() {
   return (
     <div>
       <Grid container>
-        <Grid item sm={12} className="my-2">
+        <Grid item xs={12} sm={12} className="my-2">
           <div>
             <Button
               my={1}
@@ -337,7 +337,7 @@ function ServiceTab() {
             </Button>
           </div>
         </Grid>
-        <Grid item sm={12}>
+        <Grid item xs={12} sm={12}>
           <Calendar
             localizer={localizer}
             events={eventList}
