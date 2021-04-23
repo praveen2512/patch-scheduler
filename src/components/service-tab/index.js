@@ -81,6 +81,7 @@ function ServiceTab() {
     const event = { ...formData, end: start, resource: { ...formData } };
     dispatch({ type: "ADD_EVENT", payload: event });
     setFormData(initialState);
+    handleClose();
   };
 
   const getPatchDialog = () => {
@@ -236,6 +237,7 @@ function ServiceTab() {
                   }}
                   required
                 >
+                  <option aria-label="None" value="" />
                   <option value="requested">Requested</option>
                   <option value="pending">Pending for Approval</option>
                   <option value="approved">Approved</option>
