@@ -1,11 +1,12 @@
-import React from 'react'
+import React from 'react';
+import PatchTable from './PatchTable';
 
-function index() {
+function ServerTab() {
     return (
         <div>
-            Server Team Tab
+            <PatchTable />
         </div>
     )
 }
 
-export default index
+export default ServerTab

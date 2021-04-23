@@ -2,7 +2,7 @@ import React, {useState} from "react";
 import { Box, Paper, Tab, Tabs, Typography } from "@material-ui/core";
 import { PeopleOutlineTwoTone, SettingsApplications } from "@material-ui/icons";
 
-import ServiceTab from './service-tab/ServiceTab';
+import ServiceTab from './service-tab';
 import ServerTeamTab from './server-team';
 
 import {useSelector} from 'react-redux';

@@ -22,7 +22,7 @@ function App() {
         </AppBar>
         <Router>
           <Container>
-            <Route path="/" component={Schedule} />
+            <Route path="/" exact component={Schedule} />
           </Container>
         </Router>
       </div>

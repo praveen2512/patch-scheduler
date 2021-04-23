@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
+  Box,
   Button,
   Dialog,
   DialogActions,
@@ -24,25 +25,27 @@ import { useSelector, useDispatch } from "react-redux";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import { blue } from "@material-ui/core/colors";
 
+const initialState = {
+  title: "",
+  description: "",
+  server: "",
+  osVersion: "",
+  patchDate: new Date(),
+  isApprovalNeeded: "",
+  approvalStatus: "",
+  approverName: "",
+  approverEmail: "",
+  start: "",
+  end: "",
+};
+
 function ServiceTab() {
   const localizer = momentLocalizer(moment);
 
   const [open, setOpen] = useState(false);
   const [scroll, setScroll] = useState("paper");
   // const [server, setServer] = useState("");
-  const [formData, setFormData] = useState({
-    title: "",
-    description: "",
-    server: "",
-    osVersion: "",
-    patchDate: new Date(),
-    isApprovalNeeded: "",
-    approvalStatus: "",
-    approverName: "",
-    approverEmail: "",
-    start: "",
-    end: "",
-  });
+  const [formData, setFormData] = useState(initialState);
 
   const submitButtonRef = useRef();
 
@@ -70,16 +73,17 @@ function ServiceTab() {
   };
 
   const handleSubmit = (e) => {
-    console.log("form submitted", formData);
+    console.log("fomr submiited");
     e.preventDefault();
-    const {patchDate} = formData;
+    // const {patchDate} = formData;
     // const event = {...formData, start: patchDate, end: patchDate, resource: {...formData} };
-    const event = {...formData, resource: {...formData} };
-    
+    const { start } = formData;
+    const event = { ...formData, end: start, resource: { ...formData } };
     dispatch({ type: "ADD_EVENT", payload: event });
+    setFormData(initialState);
   };
 
-  const getDialog = () => {
+  const getPatchDialog = () => {
     console.log("patch date ", formData.patchDate);
     return (
       <Dialog
@@ -91,9 +95,16 @@ function ServiceTab() {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">Schedule a Service</DialogTitle>
-        <DialogContent dividers={scroll === "paper"}>
-          <form onSubmit={handleSubmit}>
+        <DialogTitle id="scroll-dialog-title">
+          Expand to see more information
+        </DialogTitle>
+        <form onSubmit={handleSubmit}>
+          <DialogContent dividers={scroll === "paper"}>
+            <DialogContentText align="center" color="primary">
+              {/* Schedule for {`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")} to ${moment(formData.end).format("MMMM Do YYYY, h:mm:ss a")}`} */}
+              Schedule for{" "}
+              {`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")}`}
+            </DialogContentText>
             <Grid container spacing={3}>
               <Grid item sm={12} md={6}>
                 <TextField
@@ -106,6 +117,7 @@ function ServiceTab() {
                   value={formData.title}
                   onChange={handleOnChange}
                   fullWidth
+                  required
                 />
               </Grid>
               <Grid item sm={12} md={12}>
@@ -134,6 +146,7 @@ function ServiceTab() {
                     name: "server",
                     id: "server-label",
                   }}
+                  required
                 >
                   <option aria-label="None" value="" />
                   <option value="server-1">Server 1</option>
@@ -152,19 +165,32 @@ function ServiceTab() {
                   value={formData.osVersion}
                   onChange={handleOnChange}
                   fullWidth
+                  required
                 />
               </Grid>
               <Grid item sm={12} md={6}>
-              
+                {/* <TextField
+                    margin="dense"
+                    id="patchDate"
+                    name="patchDate"
+                    label="Patch Date"
+                    type="date"
+                    value={formData.patchDate}
+                    onChange={handleOnChange}
+                    fullWidth
+                    required
+                  /> */}
                 <TextField
-                  margin="dense"
-                  id="patchDate"
-                  name="patchDate"
                   label="Patch Date"
-                  type="date"
-                  value={formData.patchDate}
+                  id="start"
+                  name="start"
+                  type="datetime-local"
+                  value={formData.start}
                   onChange={handleOnChange}
-                  fullWidth
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
+                  required
                 />
               </Grid>
               <Grid item sm={12} md={6}>
@@ -178,18 +204,17 @@ function ServiceTab() {
                     style={{ flexDirection: "row" }}
                     value={formData.isApprovalNeeded}
                     onChange={handleOnChange}
+                    required
                   >
                     <FormControlLabel
                       value="Y"
-                      control={<Radio />}
+                      control={<Radio color="primary" />}
                       label="Yes"
-                      color="primary"
                     />
                     <FormControlLabel
                       value="N"
-                      control={<Radio />}
+                      control={<Radio color="primary" />}
                       label="No"
-                      color="primary"
                     />
                   </RadioGroup>
                 </FormControl>
@@ -209,6 +234,7 @@ function ServiceTab() {
                     name: "approvalStatus",
                     id: "approval-status-label",
                   }}
+                  required
                 >
                   <option value="requested">Requested</option>
                   <option value="pending">Pending for Approval</option>
@@ -226,6 +252,7 @@ function ServiceTab() {
                   value={formData.approverName}
                   onChange={handleOnChange}
                   fullWidth
+                  required
                 />
               </Grid>
               <Grid item sm={12} md={6}>
@@ -238,82 +265,105 @@ function ServiceTab() {
                   value={formData.approverEmail}
                   onChange={handleOnChange}
                   fullWidth
+                  required
                 />
               </Grid>
             </Grid>
-            <Button type="submit" ref={submitButtonRef} style={{display: "none"}}></Button>
-          </form>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} color="primary">
-            Cancel
-          </Button>
-          <Button onClick={(e) => {submitButtonRef.current.click(); handleClose()}} color="primary">
-            Schedule
-          </Button>
-        </DialogActions>
+            <Button
+              type="submit"
+              ref={submitButtonRef}
+              style={{ display: "none" }}
+            ></Button>
+          </DialogContent>
+          <DialogActions>
+            <Button onClick={handleClose} color="primary">
+              Cancel
+            </Button>
+            <Button color="primary" type="submit">
+              Schedule
+            </Button>
+          </DialogActions>
+        </form>
       </Dialog>
     );
   };
 
   const eventGetter = (event) => {
     const approvalStatus = event.approvalStatus;
-    var backgroundColor = approvalStatus === 'requested' ? 'blue' : approvalStatus === 'pending' ? 'yellow' : approvalStatus === 'approved' ? 'green' : approvalStatus === 'denied' ? 'red' : '' ;
-    
+    var backgroundColor =
+      approvalStatus === "requested"
+        ? "blue"
+        : approvalStatus === "pending"
+        ? "yellow"
+        : approvalStatus === "approved"
+        ? "green"
+        : approvalStatus === "denied"
+        ? "red"
+        : "";
+
     var style = {
-        backgroundColor: backgroundColor,
+      backgroundColor: backgroundColor,
     };
-    return {style};
-  }
+    return { style };
+  };
 
   const handleSlotSelect = (e) => {
     console.log("drag", e);
-    const {start, end} = e;
+    const { start, end } = e;
 
     // const title = window.prompt('Event Tile');
     // if(title){
     //   // dispatch({ type: "ADD_EVENT", payload: {start, end, title} });
     // }
 
-    setFormData({...formData, patchDate: start,  start, end});
+    setFormData({ ...formData, patchDate: start, start, end });
     handleClickOpen("paper");
-  }
+  };
 
   return (
     <div>
-      <Button
-        variant="contained"
-        color="primary"
-        onClick={() => handleClickOpen("paper")}
-        endIcon={<Schedule />}
-      >
-        Schedule
-      </Button>
-      {getDialog()}
-      <Calendar
-        localizer={localizer}
-        events={eventList}
-        startAccessor="start"
-        endAccessor="end"
-        style={{ height: 500 }}
-        eventPropGetter={eventGetter}
-        slotGroupPropGetter={()=>{}}
-        onNavigate={() => {
-          console.log("navigating");
-        }}
-        selectable={true}
-        onSelectSlot={(e) => {
-          // console.log("select slot", e);
-          handleSlotSelect(e)
-        }}
-        onSelectEvent={(e) => {
-          // console.log("select event", e);
-          alert(e.title)
-        }}
-        popup={true}
-        handleDragStart={() => {}}
-        
-      />
+      <Grid container>
+        <Grid item sm={12} className="my-2">
+          <div>
+            <Button
+              my={1}
+              variant="contained"
+              color="primary"
+              onClick={() => handleClickOpen("paper")}
+              endIcon={<Schedule />}
+              className="btn schedule-btn"
+            >
+              Schedule
+            </Button>
+          </div>
+        </Grid>
+        <Grid item sm={12}>
+          <Calendar
+            localizer={localizer}
+            events={eventList}
+            startAccessor="start"
+            endAccessor="end"
+            style={{ height: 500 }}
+            eventPropGetter={eventGetter}
+            slotGroupPropGetter={() => {}}
+            onNavigate={() => {
+              console.log("navigating");
+            }}
+            selectable={true}
+            onSelectSlot={(e) => {
+              // console.log("select slot", e);
+              handleSlotSelect(e);
+            }}
+            onSelectEvent={(e) => {
+              console.log("select event", e);
+              alert(e.title);
+            }}
+            popup={true}
+            handleDragStart={() => {}}
+          />
+        </Grid>
+      </Grid>
+      {getPatchDialog()}
     </div>
   );
 }

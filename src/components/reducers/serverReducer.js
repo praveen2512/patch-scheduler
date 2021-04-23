@@ -1,13 +1,5 @@
 const initialState = {
-  events: [
-    {
-      title: "Event 1",
-      start: new Date("April 23, 2021 10:00:00"),
-      end: new Date("April 23, 2021 11:00:00"),
-      allDay: false,
-      resource: "any",
-    },
-  ],
+  events: [ ],
   eventList: [
     {
       title: "Event 1",
