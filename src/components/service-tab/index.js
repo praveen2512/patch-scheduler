@@ -35,7 +35,7 @@ const initialState = {
   approvalStatus: "",
   approverName: "",
   approverEmail: "",
-  start: "",
+  start: new Date(),
   end: "",
 };
 
