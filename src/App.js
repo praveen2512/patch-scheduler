@@ -17,19 +17,12 @@ function App() {
             <IconButton edge="start" color="inherit" aria-label="menu">
               <Menu />
             </IconButton>
-            <Typography variant="h6">News</Typography>
-            <Button color="inherit">Login</Button>
+            <Typography variant="h6">Patch Scheduler</Typography>
           </Toolbar>
         </AppBar>
         <Router>
           <Container>
-            <Route path="/" exact render={() => <h1>Welcom to home page</h1>} />
-            <Route path="/about" render={() => <h1>Welcom to about page</h1>} />
-            <Route
-              path="/contact"
-              render={() => <h1>Welcom to contact page</h1>}
-            />
-            <Route path="/schedule" component={Schedule} />
+            <Route path="/" component={Schedule} />
           </Container>
         </Router>
       </div>

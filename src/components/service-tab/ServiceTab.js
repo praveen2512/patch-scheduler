@@ -40,6 +40,8 @@ function ServiceTab() {
     approvalStatus: "",
     approverName: "",
     approverEmail: "",
+    start: "",
+    end: "",
   });
 
   const submitButtonRef = useRef();
@@ -71,7 +73,8 @@ function ServiceTab() {
     console.log("form submitted", formData);
     e.preventDefault();
     const {patchDate} = formData;
-    const event = {...formData, start: patchDate, end: patchDate, resource: {...formData} }
+    // const event = {...formData, start: patchDate, end: patchDate, resource: {...formData} };
+    const event = {...formData, resource: {...formData} };
     
     dispatch({ type: "ADD_EVENT", payload: event });
   };
