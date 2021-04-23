@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
 import {
-  Box,
   Button,
   Dialog,
   DialogActions,
@@ -23,7 +22,6 @@ import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
-import { blue } from "@material-ui/core/colors";
 
 const initialState = {
   title: "",

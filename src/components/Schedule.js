@@ -1,5 +1,5 @@
 import React, {useState} from "react";
-import { Box, Paper, Tab, Tabs, Typography } from "@material-ui/core";
+import { Box, Paper, Tab, Tabs } from "@material-ui/core";
 import { PeopleOutlineTwoTone, SettingsApplications } from "@material-ui/icons";
 
 import ServiceTab from './service-tab';
@@ -35,7 +35,6 @@ function tabProps(index) {
 
 function Schedule() {
   const [currentTabValue, setCurrentTabValue] = useState(0);
-  const fullname = useSelector(state => state.userReducer.fullname);
 
   const handleChange = (event, index) => {
     setCurrentTabValue(index);

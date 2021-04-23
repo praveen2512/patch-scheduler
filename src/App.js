@@ -1,7 +1,6 @@
-import logo from "./logo.svg";
 import "./App.css";
-import { BrowserRouter as Router, Link, Route } from "react-router-dom";
-import { AppBar, Button, Container, IconButton, Toolbar, Typography } from "@material-ui/core";
+import { BrowserRouter as Router, Route } from "react-router-dom";
+import { AppBar, Container, IconButton, Toolbar, Typography } from "@material-ui/core";
 import {Menu} from '@material-ui/icons';
 import {Provider} from 'react-redux'
 
