@@ -22,7 +22,7 @@ function Row(props) {
   return (
     <React.Fragment>
       <TableRow className={classes.root}>
-        <TableCell>
+        {/* <TableCell>
           <IconButton
             aria-label="expand row"
             size="small"
@@ -30,14 +30,14 @@ function Row(props) {
           >
             {open ? <KeyboardArrowUpIcon /> : <KeyboardArrowDownIcon />}
           </IconButton>
-        </TableCell>
+        </TableCell> */}
         <TableCell component="th" scope="row">
           {row.title}
         </TableCell>
         <TableCell align="center">{row.description}</TableCell>
         <TableCell align="center">{row.server}</TableCell>
         <TableCell align="center">{row.osVersion}</TableCell>
-        <TableCell align="center">{row.patchDate.toString()}</TableCell>
+        <TableCell align="center">{row.start.toString()}</TableCell>
         <TableCell align="center">{row.approvalStatus}</TableCell>
         <TableCell align="center">{row.approverName}</TableCell>
         <TableCell align="center">{row.approverEmail}</TableCell>
@@ -92,7 +92,7 @@ function PatchTable() {
           <caption>Expand to view more information</caption>
           <TableHead>
             <TableRow>
-              <TableCell />
+              {/* <TableCell /> */}
               <TableCell>Title</TableCell>
               <TableCell align="center">Description</TableCell>
               <TableCell align="center">Server</TableCell>

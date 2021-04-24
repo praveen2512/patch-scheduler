@@ -34,7 +34,7 @@ const initialState = {
   approverName: "",
   approverEmail: "",
   start: new Date(),
-  end: "",
+  end: new Date(),
 };
 
 function ServiceTab() {
@@ -53,7 +53,6 @@ function ServiceTab() {
   useEffect(() => {});
 
   const handleClickOpen = (scrollType) => {
-    console.log("handleClickOpen");
     setOpen(true);
     setScroll(scrollType);
   };
@@ -63,7 +62,6 @@ function ServiceTab() {
   };
 
   const handleOnChange = (e) => {
-    console.log(`${e.target.name} : ${e.target.value}`);
     setFormData({
       ...formData,
       [e.target.name]: e.target.value,
@@ -71,19 +69,18 @@ function ServiceTab() {
   };
 
   const handleSubmit = (e) => {
-    console.log("fomr submiited");
     e.preventDefault();
     // const {patchDate} = formData;
     // const event = {...formData, start: patchDate, end: patchDate, resource: {...formData} };
-    const { start } = formData;
-    const event = { ...formData, end: start, resource: { ...formData } };
+    // const { start } = formData;
+    const event = { ...formData, resource: { ...formData } };
+    //console.log(`new event is ${JSON.stringify(event)}`);
     dispatch({ type: "ADD_EVENT", payload: event });
     setFormData(initialState);
     handleClose();
   };
 
   const getPatchDialog = () => {
-    console.log("patch date ", formData.patchDate);
     return (
       <Dialog
         open={open}
@@ -111,7 +108,7 @@ function ServiceTab() {
                   margin="dense"
                   id="title"
                   name="title"
-                  label="title"
+                  label="Title"
                   type="text"
                   value={formData.title}
                   onChange={handleOnChange}
@@ -180,7 +177,7 @@ function ServiceTab() {
                     required
                   /> */}
                 <TextField
-                  label="Patch Date"
+                  label="Patch Date/Time"
                   id="start"
                   name="start"
                   type="datetime-local"
@@ -189,7 +186,19 @@ function ServiceTab() {
                   InputLabelProps={{
                     shrink: true,
                   }}
-                  required
+                />
+              </Grid>
+              <Grid item xs={12} sm={12} md={6}>
+                <TextField
+                  label="Patch To Date/Time"
+                  id="end"
+                  name="end"
+                  type="datetime-local"
+                  value={formData.end}
+                  onChange={handleOnChange}
+                  InputLabelProps={{
+                    shrink: true,
+                  }}
                 />
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
@@ -308,7 +317,6 @@ function ServiceTab() {
   };
 
   const handleSlotSelect = (e) => {
-    console.log("drag", e);
     const { start, end } = e;
 
     // const title = window.prompt('Event Tile');
@@ -347,7 +355,7 @@ function ServiceTab() {
             eventPropGetter={eventGetter}
             slotGroupPropGetter={() => {}}
             onNavigate={() => {
-              console.log("navigating");
+              // console.log("navigating");
             }}
             selectable={true}
             onSelectSlot={(e) => {
@@ -355,7 +363,7 @@ function ServiceTab() {
               handleSlotSelect(e);
             }}
             onSelectEvent={(e) => {
-              console.log("select event", e);
+              // console.log("select event", e);
               alert(e.title);
             }}
             popup={true}
