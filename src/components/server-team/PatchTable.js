@@ -108,7 +108,7 @@ function Row(props) {
               onChange={(e) => {
                 setActionStatus(e.target.value);
               }}
-              value={row.approvalStatus}
+              value={actionStatus}
               required
             >
               <option aria-label="None" value="" />
