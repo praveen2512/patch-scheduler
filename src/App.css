@@ -7,6 +7,10 @@
   float: right;
 }
 
+.red-text, .red-text th, .red-text td {
+  color: #ff0000  !important;
+}
+
 .approve-btn{
   color: #2E8B57  !important;
 }

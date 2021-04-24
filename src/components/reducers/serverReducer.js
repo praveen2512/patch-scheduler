@@ -71,9 +71,10 @@ export default function (state = initialState, action) {
       };
     }
     case "DENY_PATCH": {
+      console.log("DENY_PATCH", action.payload.id, action.payload.reason);
       const patchList = state.events.map((patch) =>
-        patch.id === action.payload
-          ? { ...patch, approvalStatus: "denied" }
+        patch.id === action.payload.id
+          ? { ...patch, approvalStatus: "denied", denialReason: action.payload.reason }
           : patch
       );
       return {
