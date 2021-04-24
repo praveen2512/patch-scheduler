@@ -20,7 +20,7 @@ import { Schedule } from "@material-ui/icons";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -51,9 +51,7 @@ function ServiceTab() {
   const eventList = useSelector((state) => state.serverReducer.events);
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    
-  },[]);
+  useEffect(() => {}, []);
 
   const handleClickOpen = (scrollType) => {
     setOpen(true);
@@ -73,7 +71,20 @@ function ServiceTab() {
 
   const handleSlotSelect = (e) => {
     const { start, end } = e;
-    
+
+    const today = new Date();
+    const startDate = new Date(start);
+    const endDate = new Date(end);
+
+    if (
+      (startDate < new Date() ||
+      endDate < new Date()) &&
+      startDate.getDate() < today.getDate() ||
+      endDate.getDate() < today.getDate()
+    ) {
+      return false;
+    }
+
     //setFormData({ ...formData, patchDate: start, start, end });
     setFormData({
       ...formData,
@@ -89,8 +100,14 @@ function ServiceTab() {
     const { start, end } = formData;
 
     //const event = { ...formData, resource: { ...formData } };
-    const event = { ...formData, start: new Date(start).toISOString(), end: new Date(end).toISOString(), id: uuidv4(), resource: {  } };
-    
+    const event = {
+      ...formData,
+      start: new Date(start).toISOString(),
+      end: new Date(end).toISOString(),
+      id: uuidv4(),
+      resource: {},
+    };
+
     console.log(`new event is ${JSON.stringify(event)}`);
     dispatch({ type: "ADD_EVENT", payload: event });
     setFormData(initialState);
@@ -316,21 +333,32 @@ function ServiceTab() {
 
   const eventGetter = (event) => {
     const approvalStatus = event.approvalStatus;
-    var backgroundColor =
+    var eventClass =
       approvalStatus === "requested"
-        ? "#3174ad"
+        ? "requested"
         : approvalStatus === "pending"
-        ? "yellow"
+        ? "pending"
         : approvalStatus === "approved"
-        ? "green"
+        ? "approved"
         : approvalStatus === "denied"
-        ? "red"
+        ? "denied"
         : "";
 
-    var style = {
-      backgroundColor: backgroundColor,
-    };
-    return { style };
+    var style = {};
+    return { className: eventClass, style };
+  };
+
+  const customDayPropGetter = (date) => {
+    const today = new Date();
+    const currentDate = new Date(date);
+
+    if (currentDate < today && currentDate.getDate() < today.getDate()) {
+      return {
+        className: "disabled-day",
+      };
+    } else {
+      return {};
+    }
   };
 
   return (
@@ -354,22 +382,18 @@ function ServiceTab() {
           <Calendar
             localizer={localizer}
             events={eventList}
+            views={["month", "agenda"]}
             defaultDate={new Date()}
             startAccessor="start"
             endAccessor="end"
             style={{ height: 500 }}
+            dayPropGetter={customDayPropGetter}
             eventPropGetter={eventGetter}
             slotGroupPropGetter={() => {}}
-            onNavigate={() => {
-              // console.log("navigating");
-            }}
+            onNavigate={() => {}}
             selectable={true}
-            onSelectSlot={(e) => {
-              // console.log("select slot", e);
-              handleSlotSelect(e);
-            }}
+            onSelectSlot={handleSlotSelect}
             onSelectEvent={(e) => {
-              // console.log("select event", e);
               alert(e.title);
             }}
             popup={true}

@@ -19,6 +19,34 @@
   color: #ff0000  !important;
 }
 
+.date-in-past {
+  width: 14.3%;
+  background: #ccc;
+  border-right: solid 1px #fff;
+  cursor: not-allowed;
+ }
+
+ .disabled-day, .disabled-day:hover{
+   background-color: #808080;
+   cursor: not-allowed;
+ }
+
+ .requested{
+    background-color: #3174ad;
+ }
+
+ .pending{
+  background-color: yellow;
+}
+
+.approved{
+  background-color: green;
+}
+
+.denied{
+  background-color: red;
+}
+
 /* utils */
 
 .mt-0, .my-0 {
