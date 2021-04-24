@@ -5,7 +5,7 @@ import { PeopleOutlineTwoTone, SettingsApplications } from "@material-ui/icons";
 import ServiceTab from './service-tab';
 import ServerTeamTab from './server-team';
 
-import {useSelector} from 'react-redux';
+// import {useSelector} from 'react-redux';
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

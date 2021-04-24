@@ -54,7 +54,6 @@ export default function (state = initialState, action) {
         state,
       };
     case "ADD_EVENT":
-      console.log("adding event");
       return {
         ...state,
         events: [...state.events, action.payload],
@@ -71,7 +70,6 @@ export default function (state = initialState, action) {
       };
     }
     case "DENY_PATCH": {
-      console.log("DENY_PATCH", action.payload.id, action.payload.reason);
       const patchList = state.events.map((patch) =>
         patch.id === action.payload.id
           ? { ...patch, approvalStatus: "denied", denialReason: action.payload.reason }
@@ -82,6 +80,16 @@ export default function (state = initialState, action) {
         events: patchList,
       };
     }
+    case "HANDLE_ACTION":
+      const patchList = state.events.map((patch) =>
+        patch.id === action.payload.id
+          ? { ...patch, approvalStatus: action.payload.status, denialReason: action.payload.reason }
+          : patch
+      );
+      return {
+        ...state,
+        events: patchList
+      };
     default:
       return state;
   }

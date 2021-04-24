@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useState} from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -12,6 +12,7 @@ import {
   TableHead,
   TableRow,
   Typography,
+  Select,
   Paper,
 } from "@material-ui/core";
 
@@ -34,19 +35,30 @@ const useRowStyles = makeStyles({
 
 function Row(props) {
   const { row, dispatch } = props;
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [actionStatus, setActionStatus] = useState(row.approvalStatus);
   const classes = useRowStyles();
 
   const handleDenial = (patchId) => {
     const reason = window.prompt("Reason for Denial");
-    dispatch({ type: "DENY_PATCH", payload: { id: patchId, reason: reason } });
+    if(reason){
+      dispatch({ type: "DENY_PATCH", payload: { id: patchId, reason: reason } });
+    }
   };
+
+  const handleAction = (patchId) => {
+    var reason = "";
+    var status = actionStatus;
+    if(status === "denied"){
+      reason = window.prompt("Reason for Denial");
+    }
+    dispatch({ type: "HANDLE_ACTION", payload: { id: patchId, status, reason: reason } });
+  }
 
   return (
     <React.Fragment>
       <TableRow
-        className={classes.root}
-        className={row.approvalStatus && `${row.approvalStatus}-row`}
+        className={row.approvalStatus && `${row.approvalStatus}-row ${classes.root}`}
       >
         <TableCell>
           <IconButton size="small" onClick={() => setOpen(!open)}>
@@ -88,6 +100,33 @@ function Row(props) {
           >
             <CancelOutlined />
           </IconButton>
+        </TableCell>
+        <TableCell align="center">
+          <Select
+              native
+              fullWidth
+              onChange={(e) => {
+                setActionStatus(e.target.value);
+              }}
+              value={row.approvalStatus}
+              required
+            >
+              <option aria-label="None" value="" />
+              <option value="requested">Requested</option>
+              <option value="pending">Pending</option>
+              <option value="approved">Approved</option>
+              <option value="denied">Deny</option>
+            </Select>
+            <IconButton
+              size="small"
+              title="save"
+              className="approve-btn"
+              onClick={() => {
+                handleAction(row.id);
+              }}
+            >
+              <Done />
+            </IconButton>
         </TableCell>
       </TableRow>
       <TableRow>
@@ -141,6 +180,7 @@ function PatchTable() {
               <TableCell align="center">Approver Email</TableCell> */}
               <TableCell align="center">Approve</TableCell>
               <TableCell align="center">Deny </TableCell>
+              <TableCell align="center">Action </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

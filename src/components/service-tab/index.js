@@ -6,13 +6,13 @@ import {
   DialogContent,
   DialogContentText,
   DialogTitle,
-  FormControl,
-  FormControlLabel,
-  FormLabel,
+  // FormControl,
+  // FormControlLabel,
+  // FormLabel,
   Grid,
   InputLabel,
-  Radio,
-  RadioGroup,
+  // Radio,
+  // RadioGroup,
   Select,
   TextField,
 } from "@material-ui/core";
@@ -21,8 +21,8 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
-import { DateTimePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
-import MomentUtils from '@date-io/moment';
+// import { DateTimePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+// import MomentUtils from '@date-io/moment';
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -81,8 +81,8 @@ function ServiceTab() {
     if (
       (startDate < new Date() ||
       endDate < new Date()) &&
-      startDate.getDate() < today.getDate() ||
-      endDate.getDate() < today.getDate()
+      (startDate.getDate() < today.getDate() ||
+      endDate.getDate() < today.getDate())
     ) {
       return false;
     }
@@ -110,7 +110,6 @@ function ServiceTab() {
       resource: {},
     };
 
-    console.log(`new event is ${JSON.stringify(event)}`);
     dispatch({ type: "ADD_EVENT", payload: event });
     setFormData(initialState);
     handleClose();
