@@ -11,8 +11,7 @@ import userReducer from './components/reducers/userReducer';
 
 
 const middlewareEnhancer = applyMiddleware(thunk)
-const composedEnhancers = compose(middlewareEnhancer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
-
+const composedEnhancers = compose(middlewareEnhancer);
 export const store = createStore(
     combineReducers({serverReducer, userReducer}),
     composedEnhancers
