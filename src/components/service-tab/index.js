@@ -20,6 +20,7 @@ import { Schedule } from "@material-ui/icons";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
+import { v4 as uuidv4 } from 'uuid';
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -29,12 +30,12 @@ const initialState = {
   server: "",
   osVersion: "",
   patchDate: new Date(),
-  isApprovalNeeded: "",
-  approvalStatus: "",
+  isApprovalNeeded: "N",
+  approvalStatus: "requested",
   approverName: "",
   approverEmail: "",
-  start: new Date(),
-  end: new Date(),
+  start: moment().format("YYYY-MM-DDThh:mm"),
+  end: moment().format("YYYY-MM-DDThh:mm"),
 };
 
 function ServiceTab() {
@@ -50,7 +51,9 @@ function ServiceTab() {
   const eventList = useSelector((state) => state.serverReducer.events);
   const dispatch = useDispatch();
 
-  useEffect(() => {});
+  useEffect(() => {
+    
+  },[]);
 
   const handleClickOpen = (scrollType) => {
     setOpen(true);
@@ -68,13 +71,27 @@ function ServiceTab() {
     });
   };
 
+  const handleSlotSelect = (e) => {
+    const { start, end } = e;
+    
+    //setFormData({ ...formData, patchDate: start, start, end });
+    setFormData({
+      ...formData,
+      patchDate: moment(start).format("YYYY-MM-DDThh:mm"),
+      start: moment(start).format("YYYY-MM-DDThh:mm"),
+      end: moment(end).format("YYYY-MM-DDThh:mm"),
+    });
+    handleClickOpen("paper");
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    // const {patchDate} = formData;
-    // const event = {...formData, start: patchDate, end: patchDate, resource: {...formData} };
-    // const { start } = formData;
-    const event = { ...formData, resource: { ...formData } };
-    //console.log(`new event is ${JSON.stringify(event)}`);
+    const { start, end } = formData;
+
+    //const event = { ...formData, resource: { ...formData } };
+    const event = { ...formData, start: new Date(start).toISOString(), end: new Date(end).toISOString(), id: uuidv4(), resource: {  } };
+    
+    console.log(`new event is ${JSON.stringify(event)}`);
     dispatch({ type: "ADD_EVENT", payload: event });
     setFormData(initialState);
     handleClose();
@@ -177,7 +194,7 @@ function ServiceTab() {
                     required
                   /> */}
                 <TextField
-                  label="Patch Date/Time"
+                  label="Patch From Date/Time"
                   id="start"
                   name="start"
                   type="datetime-local"
@@ -201,7 +218,7 @@ function ServiceTab() {
                   }}
                 />
               </Grid>
-              <Grid item xs={12} sm={12} md={6}>
+              {/* <Grid item xs={12} sm={12} md={6}>
                 <FormControl component="fieldset">
                   <FormLabel component="legend">
                     Application Team Approval needed
@@ -250,7 +267,7 @@ function ServiceTab() {
                   <option value="approved">Approved</option>
                   <option value="denied">Denied</option>
                 </Select>
-              </Grid>
+              </Grid> */}
               <Grid item xs={12} sm={12} md={6}>
                 <TextField
                   margin="dense"
@@ -301,7 +318,7 @@ function ServiceTab() {
     const approvalStatus = event.approvalStatus;
     var backgroundColor =
       approvalStatus === "requested"
-        ? "blue"
+        ? "#3174ad"
         : approvalStatus === "pending"
         ? "yellow"
         : approvalStatus === "approved"
@@ -314,18 +331,6 @@ function ServiceTab() {
       backgroundColor: backgroundColor,
     };
     return { style };
-  };
-
-  const handleSlotSelect = (e) => {
-    const { start, end } = e;
-
-    // const title = window.prompt('Event Tile');
-    // if(title){
-    //   // dispatch({ type: "ADD_EVENT", payload: {start, end, title} });
-    // }
-
-    setFormData({ ...formData, patchDate: start, start, end });
-    handleClickOpen("paper");
   };
 
   return (
@@ -349,6 +354,7 @@ function ServiceTab() {
           <Calendar
             localizer={localizer}
             events={eventList}
+            defaultDate={new Date()}
             startAccessor="start"
             endAccessor="end"
             style={{ height: 500 }}

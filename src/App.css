@@ -7,6 +7,13 @@
   float: right;
 }
 
+.approve-btn{
+  color: #2E8B57  !important;
+}
+
+.deny-btn{
+  color: #ff0000  !important;
+}
 
 /* utils */
 

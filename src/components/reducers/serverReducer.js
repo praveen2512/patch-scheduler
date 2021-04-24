@@ -1,5 +1,5 @@
 const initialState = {
-  events: [ ],
+  events: [],
   eventList: [
     {
       title: "Event 1",
@@ -47,22 +47,41 @@ const initialState = {
 };
 
 export default function (state = initialState, action) {
-  const {type} = action;
+  const { type } = action;
   switch (type) {
     case "GET_EVENTS":
       return {
         state,
       };
     case "ADD_EVENT":
-        console.log('adding event');
+      console.log("adding event");
       return {
         ...state,
-        events: [
-          ...state.events,
-          action.payload
-        ],
+        events: [...state.events, action.payload],
       };
+    case "APPROVE_PATCH": {
+      const patchList = state.events.map((patch) =>
+        patch.id === action.payload
+          ? { ...patch, approvalStatus: "approved" }
+          : patch
+      );
+      return {
+        ...state,
+        events: patchList,
+      };
+    }
+    case "DENY_PATCH": {
+      const patchList = state.events.map((patch) =>
+        patch.id === action.payload
+          ? { ...patch, approvalStatus: "denied" }
+          : patch
+      );
+      return {
+        ...state,
+        events: patchList,
+      };
+    }
     default:
       return state;
   }
-};
+}
