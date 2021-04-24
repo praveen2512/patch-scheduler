@@ -7,44 +7,52 @@
   float: right;
 }
 
-.red-text, .red-text th, .red-text td {
-  color: #ff0000  !important;
-}
-
-.approve-btn{
-  color: #2E8B57  !important;
-}
-
-.deny-btn{
-  color: #ff0000  !important;
-}
-
 .date-in-past {
   width: 14.3%;
   background: #ccc;
   border-right: solid 1px #fff;
   cursor: not-allowed;
- }
+}
 
- .disabled-day, .disabled-day:hover{
-   background-color: #808080;
-   cursor: not-allowed;
- }
+.disabled-day, .disabled-day:hover{
+  background-color: #808080;
+  cursor: not-allowed;
+}
 
- .requested{
-    background-color: #3174ad;
- }
+.red-text {
+  color: #ff0000  !important;
+}
 
- .pending{
-  background-color: yellow;
+.requested-row th, .requested-row td{
+  color: #3174ad  !important;
+}
+
+.pending-row th, .pending-row td{
+  color: #FFFF00  !important;
+}
+
+.approve-btn, .approved-row th, .approved-row td {
+  color: #2E8B57  !important;
+}
+
+.deny-btn, .denied-row th, .denied-row td{
+  color: #ff0000  !important;
+}
+
+.requested{
+  background-color: #3174ad;
+}
+
+.pending {
+  background-color: #FFFF00;
 }
 
 .approved{
-  background-color: green;
+  background-color: #2E8B57;
 }
 
 .denied{
-  background-color: red;
+  background-color: #ff0000;
 }
 
 /* utils */

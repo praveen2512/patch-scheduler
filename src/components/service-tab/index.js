@@ -21,6 +21,8 @@ import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
 import { v4 as uuidv4 } from "uuid";
+import { DateTimePicker, KeyboardDateTimePicker, MuiPickersUtilsProvider} from "@material-ui/pickers";
+import MomentUtils from '@date-io/moment';
 
 import "react-big-calendar/lib/css/react-big-calendar.css";
 
@@ -221,6 +223,27 @@ function ServiceTab() {
                     shrink: true,
                   }}
                 />
+                {/* <MuiPickersUtilsProvider utils={MomentUtils}>
+                  <DateTimePicker
+                          variant="inline"
+                          label="Basic example"
+                          value={formData.start}
+                          onChange={handleOnChange}
+                        />
+
+                        <KeyboardDateTimePicker
+                          variant="inline"
+                          ampm={false}
+                          label="Patch From Date/Timeee"
+                          id="start"
+                          name="start"
+                          value={formData.start}
+                          onChange={handleOnChange}
+                          onError={console.log}
+                          disablePast
+                          format="YYYY-MM-DDThh:mm"
+                        />
+                  </MuiPickersUtilsProvider> */}
               </Grid>
               <Grid item xs={12} sm={12} md={6}>
                 <TextField

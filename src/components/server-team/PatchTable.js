@@ -46,7 +46,7 @@ function Row(props) {
     <React.Fragment>
       <TableRow
         className={classes.root}
-        className={row.approvalStatus === "denied" ? "red-text" : ""}
+        className={row.approvalStatus && `${row.approvalStatus}-row`}
       >
         <TableCell>
           <IconButton size="small" onClick={() => setOpen(!open)}>
@@ -127,7 +127,7 @@ function PatchTable() {
     <Paper>
       <TableContainer component={Paper}>
         <Table aria-label="collapsible table">
-          <caption>Expand to view more information</caption>
+          <caption>Expand to view more details</caption>
           <TableHead>
             <TableRow>
               <TableCell />
@@ -139,8 +139,8 @@ function PatchTable() {
               <TableCell align="center">Status</TableCell>
               {/* <TableCell align="center">Approver Name</TableCell>
               <TableCell align="center">Approver Email</TableCell> */}
-              <TableCell align="center"> </TableCell>
-              <TableCell align="center"> </TableCell>
+              <TableCell align="center">Approve</TableCell>
+              <TableCell align="center">Deny </TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
