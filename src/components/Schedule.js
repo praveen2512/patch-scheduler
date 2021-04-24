@@ -51,7 +51,7 @@ function Schedule() {
         aria-label="icon tabs example"
       >
         <Tab
-          label="Sevice"
+          label="Service"
           icon={<PeopleOutlineTwoTone />}
           aria-label="person"
           {...tabProps(0)}
