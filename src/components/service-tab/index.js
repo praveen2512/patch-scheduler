@@ -183,6 +183,9 @@ function ServiceTab() {
                   <option value="server-1">Server 1</option>
                   <option value="server-2">Server 2</option>
                   <option value="server-3">Server 3</option>
+                  <option value="server-4">Server 4</option>
+                  <option value="server-5">Server 5</option>
+                  <option value="server-6">Server 6</option>
                 </Select>
                 {/* </FormControl> */}
               </Grid>
