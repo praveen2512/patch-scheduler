@@ -1,6 +1,7 @@
 {
   "name": "patch-scheduler",
   "version": "0.1.0",
+  "author": "praveen kumar",
   "private": true,
   "dependencies": {
     "@date-io/moment": "^2.10.8",
