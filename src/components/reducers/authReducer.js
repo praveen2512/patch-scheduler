@@ -11,7 +11,7 @@ export default (state = initialState, action) => {
   const { type } = action;
   switch (type) {
     case "LOGIN":
-      const user = users.find(u => u.email === action.payload.email && u.password === action.payload.password);
+      const user = users.find(u => u.email.toLowerCase() === action.payload.email.toLowerCase() && u.password === action.payload.password);
       return {
         ...state,
         user: user ? user : {},

@@ -1,21 +1,11 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
 import { Box, Container, Typography } from "@material-ui/core";
-import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 
 import Schedule from "./components/Schedule";
 import Login from "./components/auth/Login";
 import Header from "./components/Header";
-
-const theme = createMuiTheme({
-  palette: {
-    primary: {
-      main: "#003C4D",
-      dark: "#002029",
-    },
-  },
-});
 
 function Copyright() {
   return (
@@ -35,22 +25,20 @@ function App() {
   }
 
   return (
-    <MuiThemeProvider theme={theme}>
-      <div className="App">
-        <Header />
-        <Container className="mt-4">
-          <Router>
-            <Switch>
-              <Route path="/login" exact component={Login} />
-              <Route path="/" exact component={Schedule} />
-            </Switch>
-          </Router>
-          <Box mt={8}>
-            <Copyright />
-          </Box>
-        </Container>
-      </div>
-    </MuiThemeProvider>
+    <div className="App">
+      <Header />
+      <Container className="mt-4">
+        <Router>
+          <Switch>
+            <Route path="/" exact component={Schedule} />
+            <Route path="/login" exact component={Login} />
+          </Switch>
+        </Router>
+        <Box mt={8}>
+          <Copyright />
+        </Box>
+      </Container>
+    </div>
   );
 }
 

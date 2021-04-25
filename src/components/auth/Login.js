@@ -1,9 +1,18 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Avatar, Button, Card, CardContent, Container, CssBaseline, TextField, Typography  } from "@material-ui/core";
+import {
+  Avatar,
+  Button,
+  Card,
+  CardContent,
+  Container,
+  CssBaseline,
+  TextField,
+  Typography,
+} from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -33,21 +42,21 @@ export default function Login() {
   const history = useHistory();
 
   const [formData, setFormData] = useState({
-      email: "",
-      password: ""
+    email: "",
+    password: "",
   });
 
   const handleChange = (e) => {
-    setFormData({...formData, [e.target.name]: e.target.value});
-  }
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
 
   const handleSubmit = (e) => {
-      e.preventDefault();
-      dispatch({ type: "LOGIN", payload: formData });
+    e.preventDefault();
+    dispatch({ type: "LOGIN", payload: formData });
+  };
 
-      if(isLoggedIn){
-          history.push("/login");
-      }
+  if (isLoggedIn) {
+    return <Redirect to="/" />;
   }
 
   return (
@@ -89,8 +98,8 @@ export default function Login() {
                 onChange={handleChange}
                 autoComplete="current-password"
               />
-              {(errorMessage && errorMessage !== "") &&(
-                  <p className="red-text text-center">{errorMessage}</p>
+              {errorMessage && errorMessage !== "" && (
+                <p className="red-text text-center">{errorMessage}</p>
               )}
               <Button
                 type="submit"
