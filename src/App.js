@@ -1,12 +1,12 @@
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { AppBar, Box, Container, Typography } from "@material-ui/core";
-import {Provider} from 'react-redux'
+import {Provider} from 'react-redux';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import Schedule from "./components/Schedule";
 import Login from './components/auth/Login';
-import Header from './components/Header'
+import Header from './components/Header';
 import {store} from './store';
 
 const theme = createMuiTheme({
