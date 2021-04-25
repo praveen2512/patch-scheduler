@@ -49,12 +49,20 @@ export default function Login() {
   });
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    try {
+      setFormData({ ...formData, [e.target.name]: e.target.value });
+    } catch (error) {
+      console.error(`Error occured in Login handleChange :: ${error}`);
+    }
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
-    dispatch({ type: "LOGIN", payload: formData });
+    try {
+      e.preventDefault();
+      dispatch({ type: "LOGIN", payload: formData });
+    } catch (error) {
+      console.error(`Error occured in Login handleSubmit :: ${error}`);
+    }
   };
 
   if (isLoggedIn) {

@@ -37,7 +37,11 @@ function Schedule() {
   const [currentTabValue, setCurrentTabValue] = useState(0);
 
   const handleChange = (event, index) => {
-    setCurrentTabValue(index);
+    try {
+      setCurrentTabValue(index);
+    } catch (error) {
+      console.error(`Error occured in handleChange :: ${error}`);
+    }
   };
 
   return (

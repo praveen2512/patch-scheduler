@@ -56,63 +56,81 @@ function ServiceTab() {
   useEffect(() => {}, []);
 
   const handleClickOpen = (scrollType) => {
-    setOpen(true);
-    setScroll(scrollType);
+    try {
+      setOpen(true);
+      setScroll(scrollType);
+    } catch (error) {
+      console.error(`Error occured in handleClickOpen :: ${error}`);
+    }
   };
 
   const handleClose = () => {
-    setOpen(false);
+    try {
+      setOpen(false);
+    } catch (error) {
+      console.error(`Error occured in handleClose :: ${error}`);
+    }
   };
 
   const handleOnChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    try {
+      setFormData({
+        ...formData,
+        [e.target.name]: e.target.value,
+      });
+    } catch (error) {
+      console.error(`Error occured in handleOnChange :: ${error}`);
+    }
   };
 
   const handleSlotSelect = (e) => {
-    const { start, end } = e;
+    try {
+      const { start, end } = e;
 
-    const today = new Date();
-    const startDate = new Date(start);
-    const endDate = new Date(end);
+      const today = new Date();
+      const startDate = new Date(start);
+      const endDate = new Date(end);
 
-    if (
-      (startDate < new Date() ||
-      endDate < new Date()) &&
-      (startDate.getDate() < today.getDate() ||
-      endDate.getDate() < today.getDate())
-    ) {
-      return false;
+      if (
+        (startDate < new Date() || endDate < new Date()) &&
+        (startDate.getDate() < today.getDate() ||
+          endDate.getDate() < today.getDate())
+      ) {
+        return false;
+      }
+
+      //setFormData({ ...formData, patchDate: start, start, end });
+      setFormData({
+        ...formData,
+        patchDate: moment(start).format("YYYY-MM-DDThh:mm"),
+        start: moment(start).format("YYYY-MM-DDThh:mm"),
+        end: moment(end).format("YYYY-MM-DDThh:mm"),
+      });
+      handleClickOpen("paper");
+    } catch (error) {
+      console.error(`Error occured in handleSlotSelect :: ${error}`);
     }
-
-    //setFormData({ ...formData, patchDate: start, start, end });
-    setFormData({
-      ...formData,
-      patchDate: moment(start).format("YYYY-MM-DDThh:mm"),
-      start: moment(start).format("YYYY-MM-DDThh:mm"),
-      end: moment(end).format("YYYY-MM-DDThh:mm"),
-    });
-    handleClickOpen("paper");
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const { start, end } = formData;
+    try {
+      const { start, end } = formData;
+      //const event = { ...formData, resource: { ...formData } };
+      const event = {
+        ...formData,
+        start: new Date(start).toISOString(),
+        end: new Date(end).toISOString(),
+        id: uuidv4(),
+        resource: {},
+      };
 
-    //const event = { ...formData, resource: { ...formData } };
-    const event = {
-      ...formData,
-      start: new Date(start).toISOString(),
-      end: new Date(end).toISOString(),
-      id: uuidv4(),
-      resource: {},
-    };
-
-    dispatch({ type: "ADD_EVENT", payload: event });
-    setFormData(initialState);
-    handleClose();
+      dispatch({ type: "ADD_EVENT", payload: event });
+      setFormData(initialState);
+      handleClose();
+    } catch (error) {
+      console.error(`Error occured in handleSubmit :: ${error}`);
+    }
   };
 
   const getPatchDialog = () => {
@@ -126,16 +144,19 @@ function ServiceTab() {
         aria-labelledby="scroll-dialog-title"
         aria-describedby="scroll-dialog-description"
       >
-        <DialogTitle id="scroll-dialog-title">
-          Schedule a Patch
-        </DialogTitle>
+        <DialogTitle id="scroll-dialog-title">Schedule a Patch</DialogTitle>
         <form onSubmit={handleSubmit}>
           <DialogContent dividers={scroll === "paper"}>
             <DialogContentText align="center" color="primary">
               {/* Schedule for {`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")} to ${moment(formData.end).format("MMMM Do YYYY, h:mm:ss a")}`} */}
               Schedule for{" "}
-              <b>{`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")}`} </b>{" to "}
-              <b>{`${moment(formData.end).format("MMMM Do YYYY, h:mm:ss a")}`}</b>
+              <b>
+                {`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")}`}{" "}
+              </b>
+              {" to "}
+              <b>{`${moment(formData.end).format(
+                "MMMM Do YYYY, h:mm:ss a"
+              )}`}</b>
             </DialogContentText>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={12} md={6}>
@@ -358,32 +379,40 @@ function ServiceTab() {
   };
 
   const eventGetter = (event) => {
-    const approvalStatus = event.approvalStatus;
-    var eventClass =
-      approvalStatus === "requested"
-        ? "requested"
-        : approvalStatus === "pending"
-        ? "pending"
-        : approvalStatus === "approved"
-        ? "approved"
-        : approvalStatus === "denied"
-        ? "denied"
-        : "";
+    try {
+      const approvalStatus = event.approvalStatus;
+      var eventClass =
+        approvalStatus === "requested"
+          ? "requested"
+          : approvalStatus === "pending"
+          ? "pending"
+          : approvalStatus === "approved"
+          ? "approved"
+          : approvalStatus === "denied"
+          ? "denied"
+          : "";
 
-    var style = {};
-    return { className: eventClass, style };
+      var style = {};
+      return { className: eventClass, style };
+    } catch (error) {
+      console.error(`Error occured in eventGetter :: ${error}`);
+    }
   };
 
   const customDayPropGetter = (date) => {
-    const today = new Date();
-    const currentDate = new Date(date);
+    try {
+      const today = new Date();
+      const currentDate = new Date(date);
 
-    if (currentDate < today && currentDate.getDate() < today.getDate()) {
-      return {
-        className: "disabled-day",
-      };
-    } else {
-      return {};
+      if (currentDate < today && currentDate.getDate() < today.getDate()) {
+        return {
+          className: "disabled-day",
+        };
+      } else {
+        return {};
+      }
+    } catch (error) {
+      console.error(`Error occured in customDayPropGetter :: ${error}`);
     }
   };
 

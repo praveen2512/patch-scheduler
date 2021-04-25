@@ -41,22 +41,30 @@ function Row(props) {
 
   useEffect(()=>{
       setActionStatus(row.approvalStatus);
-  }, [props]);
+  }, [props, row.approvalStatus]);
 
   const handleDenial = (patchId) => {
-    const reason = window.prompt("Reason for Denial");
+    try {
+      const reason = window.prompt("Reason for Denial");
     if(reason){
       dispatch({ type: "DENY_PATCH", payload: { id: patchId, reason: reason } });
     }
+    } catch (error) {
+      console.error(`Error occured in handleDenial :: ${error}`);
+    }    
   };
 
   const handleAction = (patchId) => {
-    var reason = "";
+    try {
+      var reason = "";
     var status = actionStatus;
     if(status === "denied"){
       reason = window.prompt("Reason for Denial");
     }
     dispatch({ type: "HANDLE_ACTION", payload: { id: patchId, status, reason: reason } });
+    } catch (error) {
+      console.error(`Error occured in handleAction :: ${error}`);
+    }
   }
 
   return (
