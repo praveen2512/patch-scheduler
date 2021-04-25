@@ -8,6 +8,10 @@ body{
   /* font-family: 'Lato', serif !important; */
 }
 
+.tool-bar{
+  justify-content: space-between;
+}
+
 .schedule-btn{
   float: right;
 }
@@ -72,6 +76,10 @@ body{
 
 .text-center{
   text-align: center !important;
+}
+
+.center{
+  align-items: center !important;
 }
 
 .mt-0, .my-0 {

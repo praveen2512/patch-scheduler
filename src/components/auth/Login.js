@@ -3,6 +3,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Button, Card, CardContent, Container, CssBaseline, TextField, Link, Grid, Box, Typography  } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useSelector, useDispatch } from "react-redux";
+import { useHistory } from "react-router-dom";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -27,7 +28,9 @@ const useStyles = makeStyles((theme) => ({
 export default function Login() {
   const classes = useStyles();
   const errorMessage = useSelector((state) => state.authReducer.errorMessage);
+  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
   const dispatch = useDispatch();
+  const history = useHistory();
 
   const [formData, setFormData] = useState({
       email: "",
@@ -41,6 +44,10 @@ export default function Login() {
   const handleSubmit = (e) => {
       e.preventDefault();
       dispatch({ type: "LOGIN", payload: formData });
+
+      if(isLoggedIn){
+          history.push("/login");
+      }
   }
 
   return (

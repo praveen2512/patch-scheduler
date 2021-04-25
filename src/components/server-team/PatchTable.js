@@ -35,7 +35,7 @@ const useRowStyles = makeStyles({
 });
 
 function Row(props) {
-  const { row, dispatch } = props;
+  const { row, dispatch, isLoggedIn, user } = props;
   const [open, setOpen] = useState(false);
   const [actionStatus, setActionStatus] = useState(row.approvalStatus);
   const classes = useRowStyles();
@@ -106,7 +106,7 @@ function Row(props) {
             <CancelOutlined />
           </IconButton>
         </TableCell> */}
-        <TableCell align="center" className="flex">
+        {user && user.team === "os" && <TableCell align="center" className="flex">
           <Select
               native
               fullWidth
@@ -142,7 +142,7 @@ function Row(props) {
             >
               <CancelOutlined />
             </IconButton>
-        </TableCell>
+        </TableCell> }
       </TableRow>
       <TableRow>
         <TableCell style={{ paddingBottom: 0, paddingTop: 0 }} colSpan={6}>
@@ -175,6 +175,8 @@ function Row(props) {
 
 function PatchTable() {
   const rows = useSelector((state) => state.serverReducer.events);
+  const user = useSelector((state) => state.authReducer.user);
+  const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
   const dispatch = useDispatch();
 
   return (
@@ -195,12 +197,12 @@ function PatchTable() {
               <TableCell align="center">Approver Email</TableCell> */}
               {/* <TableCell align="center">Approve</TableCell>
               <TableCell align="center">Deny </TableCell> */}
-              <TableCell align="center">Action </TableCell>
+              {user && user.team === "os" && <TableCell align="center">Action </TableCell>}
             </TableRow>
           </TableHead>
           <TableBody>
             {rows.map((row, idx) => (
-              <Row key={row.id} row={row} dispatch={dispatch} />
+              <Row key={row.id} row={row} dispatch={dispatch} isLoggedIn={isLoggedIn} user={user} />
             ))}
           </TableBody>
         </Table>

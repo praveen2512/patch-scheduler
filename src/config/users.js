@@ -4,13 +4,20 @@ export const users = [
         password: "welcome1",
         firstName: "Praveen",
         lastName: "Kumar",
-        team: "os"
+        team: "application"
     },
     {
         email: "arun@ymail.com",
         password: "welcome1",
         firstName: "Arun",
         lastName: "Kumar",
-        team: "application"
+        team: "os"
+    },
+    {
+        email: "harish@ymail.com",
+        password: "welcome1",
+        firstName: "Harish",
+        lastName: "",
+        team: "os"
     }
 ];
