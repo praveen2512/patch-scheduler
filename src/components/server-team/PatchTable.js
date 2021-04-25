@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { makeStyles } from "@material-ui/core/styles";
 import {
@@ -38,6 +38,10 @@ function Row(props) {
   const [open, setOpen] = useState(false);
   const [actionStatus, setActionStatus] = useState(row.approvalStatus);
   const classes = useRowStyles();
+
+  useEffect(()=>{
+      setActionStatus(row.approvalStatus);
+  }, [props]);
 
   const handleDenial = (patchId) => {
     const reason = window.prompt("Reason for Denial");
