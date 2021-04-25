@@ -8,7 +8,7 @@ import authReducer from './components/reducers/authReducer';
 // )
 
 const middlewareEnhancer = applyMiddleware(thunk)
-const composedEnhancers = compose(middlewareEnhancer, window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__())
+const composedEnhancers = compose(middlewareEnhancer)
 
 export const store = createStore(
     combineReducers({serverReducer, authReducer}),
