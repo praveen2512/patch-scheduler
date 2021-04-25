@@ -1,6 +1,6 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { AppBar, Box, Container, Typography } from "@material-ui/core";
+import { Box, Container, Typography } from "@material-ui/core";
 import { MuiThemeProvider, createMuiTheme } from "@material-ui/core/styles";
 import { useSelector } from "react-redux";
 

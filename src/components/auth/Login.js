@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import { Avatar, Button, Card, CardContent, Container, CssBaseline, TextField, Link, Grid, Box, Typography  } from "@material-ui/core";
+import { Avatar, Button, Card, CardContent, Container, CssBaseline, TextField, Typography  } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
@@ -75,7 +75,6 @@ export default function Login() {
                 onChange={handleChange}
                 autoComplete="email"
                 autoFocus
-                required
               />
               <TextField
                 variant="outlined"
@@ -89,7 +88,6 @@ export default function Login() {
                 value={formData.password}
                 onChange={handleChange}
                 autoComplete="current-password"
-                required
               />
               {(errorMessage && errorMessage !== "") &&(
                   <p className="red-text text-center">{errorMessage}</p>

@@ -5,7 +5,6 @@ import {
   IconButton,
   Box,
   Collapse,
-  Grid,
   Table,
   TableBody,
   TableCell,
@@ -35,7 +34,7 @@ const useRowStyles = makeStyles({
 });
 
 function Row(props) {
-  const { row, dispatch, isLoggedIn, user } = props;
+  const { row, dispatch, user } = props;
   const [open, setOpen] = useState(false);
   const [actionStatus, setActionStatus] = useState(row.approvalStatus);
   const classes = useRowStyles();
