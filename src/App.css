@@ -3,6 +3,11 @@
   margin: 0;
 }
 
+body{
+  background-color: lightgray !important;
+  /* font-family: 'Lato', serif !important; */
+}
+
 .schedule-btn{
   float: right;
 }
@@ -15,8 +20,12 @@
 }
 
 .disabled-day, .disabled-day:hover{
-  background-color: #808080;
+  background-color: lightgrey;
   cursor: not-allowed;
+}
+
+.disabled-day a{
+  opacity: 0.5 !important;
 }
 
 .red-text {
@@ -40,22 +49,26 @@
 }
 
 .requested{
-  background-color: #3174ad;
+  background-color: #3174ad !important;
 }
 
 .pending {
-  background-color: #FFFF00;
+  background-color: #FFFF00 !important;
 }
 
 .approved{
-  background-color: #2E8B57;
+  background-color: #2E8B57 !important;
 }
 
 .denied{
-  background-color: #ff0000;
+  background-color: #ff0000 !important;
 }
 
 /* utils */
+
+.flex{
+  display: flex !important;
+}
 
 .mt-0, .my-0 {
   margin-top: 0 !important;

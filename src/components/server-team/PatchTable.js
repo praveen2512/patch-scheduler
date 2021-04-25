@@ -5,6 +5,7 @@ import {
   IconButton,
   Box,
   Collapse,
+  Grid,
   Table,
   TableBody,
   TableCell,
@@ -80,7 +81,7 @@ function Row(props) {
         <TableCell align="center">{row.approvalStatus}</TableCell>
         {/* <TableCell align="center">{row.approverName}</TableCell> */}
         {/* <TableCell align="center">{row.approverEmail}</TableCell> */}
-        <TableCell align="center">
+        {/* <TableCell align="center">
           <IconButton
             size="small"
             title="Approve"
@@ -104,8 +105,8 @@ function Row(props) {
           >
             <CancelOutlined />
           </IconButton>
-        </TableCell>
-        <TableCell align="center">
+        </TableCell> */}
+        <TableCell align="center" className="flex">
           <Select
               native
               fullWidth
@@ -130,6 +131,16 @@ function Row(props) {
               }}
             >
               <Done />
+            </IconButton>
+            <IconButton
+              size="small"
+              title="cancel"
+              className="deny-btn"
+              onClick={() => {
+                setActionStatus(row.approvalStatus);
+              }}
+            >
+              <CancelOutlined />
             </IconButton>
         </TableCell>
       </TableRow>
@@ -182,8 +193,8 @@ function PatchTable() {
               <TableCell align="center">Status</TableCell>
               {/* <TableCell align="center">Approver Name</TableCell>
               <TableCell align="center">Approver Email</TableCell> */}
-              <TableCell align="center">Approve</TableCell>
-              <TableCell align="center">Deny </TableCell>
+              {/* <TableCell align="center">Approve</TableCell>
+              <TableCell align="center">Deny </TableCell> */}
               <TableCell align="center">Action </TableCell>
             </TableRow>
           </TableHead>
