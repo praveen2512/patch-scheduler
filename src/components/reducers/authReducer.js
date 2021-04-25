@@ -7,7 +7,6 @@ const initialState = {
 };
 
 export default (state = initialState, action) => {
-  console.log("inside auth reducer");
   const { type } = action;
   switch (type) {
     case "LOGIN":
@@ -21,9 +20,9 @@ export default (state = initialState, action) => {
         errorMessage: user ? "" : "Invalid username or password"
       }
     case "LOGOUT":
-      //sessionStorage.clear();
-      sessionStorage.setItem("user", {});
-      sessionStorage.setItem("isLoggedIn", false);
+      sessionStorage.clear();
+      // sessionStorage.setItem("user", {});
+      // sessionStorage.setItem("isLoggedIn", false);
       return{
         ...state,
         user: {},

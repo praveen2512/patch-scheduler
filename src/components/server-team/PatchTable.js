@@ -86,6 +86,7 @@ function Row(props) {
           {moment(row.end.toString()).format("MMMM Do YYYY, h:mm:ss a")}
         </TableCell>
         <TableCell align="center">{row.approvalStatus}</TableCell>
+        <TableCell align="center">{row.createdBy}</TableCell>
         {/* <TableCell align="center">{row.approverName}</TableCell> */}
         {/* <TableCell align="center">{row.approverEmail}</TableCell> */}
         {/* <TableCell align="center">
@@ -167,6 +168,11 @@ function Row(props) {
               <Typography gutterBottom component="div">
                 Approver Email: <b>{row.approverEmail}</b>
               </Typography>
+              {row.updatedBy && row.updatedBy !== "" &&
+                <Typography gutterBottom component="div">
+                  Modified By: <b>{row.updatedBy}</b>
+                </Typography>
+              }
               {row.approvalStatus && row.approvalStatus === "denied" && (
                 <Typography gutterBottom component="div">
                   Reason for Denial: <b>{row.denialReason}</b>
@@ -199,6 +205,7 @@ function PatchTable() {
               <TableCell align="center">Server</TableCell>
               <TableCell align="center">OS Version</TableCell>
               <TableCell align="center">Proposed Patch Date/Time</TableCell>
+              <TableCell align="center">Created By</TableCell>
               <TableCell align="center">Status</TableCell>
               {/* <TableCell align="center">Approver Name</TableCell>
               <TableCell align="center">Approver Email</TableCell> */}

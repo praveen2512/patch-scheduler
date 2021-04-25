@@ -59,9 +59,14 @@ export default function (state = initialState, action) {
         events: [...state.events, action.payload],
       };
     case "APPROVE_PATCH": {
+      const user = JSON.parse(sessionStorage.user);
       const patchList = state.events.map((patch) =>
         patch.id === action.payload
-          ? { ...patch, approvalStatus: "approved" }
+          ? {
+              ...patch,
+              approvalStatus: "approved",
+              updatedBy: user && user.email,
+            }
           : patch
       );
       return {
@@ -70,9 +75,15 @@ export default function (state = initialState, action) {
       };
     }
     case "DENY_PATCH": {
+      const user = JSON.parse(sessionStorage.user);
       const patchList = state.events.map((patch) =>
         patch.id === action.payload.id
-          ? { ...patch, approvalStatus: "denied", denialReason: action.payload.reason }
+          ? {
+              ...patch,
+              approvalStatus: "denied",
+              updatedBy: user && user.email,
+              denialReason: action.payload.reason,
+            }
           : patch
       );
       return {
@@ -81,14 +92,20 @@ export default function (state = initialState, action) {
       };
     }
     case "HANDLE_ACTION":
+      const user = JSON.parse(sessionStorage.user);
       const patchList = state.events.map((patch) =>
         patch.id === action.payload.id
-          ? { ...patch, approvalStatus: action.payload.status, denialReason: action.payload.reason }
+          ? {
+              ...patch,
+              approvalStatus: action.payload.status,
+              updatedBy: user && user.email,
+              denialReason: action.payload.reason,
+            }
           : patch
       );
       return {
         ...state,
-        events: patchList
+        events: patchList,
       };
     default:
       return state;

@@ -115,12 +115,14 @@ function ServiceTab() {
   const handleSubmit = (e) => {
     e.preventDefault();
     try {
+      const user = JSON.parse(sessionStorage.user);
       const { start, end } = formData;
       //const event = { ...formData, resource: { ...formData } };
       const event = {
         ...formData,
         start: new Date(start).toISOString(),
         end: new Date(end).toISOString(),
+        createdBy: user && user.email,
         id: uuidv4(),
         resource: {},
       };
