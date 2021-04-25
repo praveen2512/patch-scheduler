@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import {
   Avatar,
+  Box,
   Button,
   Card,
   CardContent,
@@ -12,7 +13,9 @@ import {
 } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
+
+import Copyright from "../Copyright";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -39,7 +42,6 @@ export default function Login() {
   const errorMessage = useSelector((state) => state.authReducer.errorMessage);
   const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
   const dispatch = useDispatch();
-  const history = useHistory();
 
   const [formData, setFormData] = useState({
     email: "",
@@ -114,6 +116,9 @@ export default function Login() {
           </div>
         </CardContent>
       </Card>
+      <Box mt={8}>
+        <Copyright />
+      </Box>
     </Container>
   );
 }

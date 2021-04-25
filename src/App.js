@@ -1,21 +1,12 @@
 import "./App.css";
 import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
-import { Box, Container, Typography } from "@material-ui/core";
+import { Box, Container } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
 import Schedule from "./components/Schedule";
 import Login from "./components/auth/Login";
 import Header from "./components/Header";
-
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {"Copyright © "}
-      Patch Scheduler {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+import Copyright from "./components/Copyright";
 
 function App() {
   const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);

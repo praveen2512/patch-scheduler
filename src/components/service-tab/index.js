@@ -127,14 +127,15 @@ function ServiceTab() {
         aria-describedby="scroll-dialog-description"
       >
         <DialogTitle id="scroll-dialog-title">
-          Expand to see more information
+          Schedule a Patch
         </DialogTitle>
         <form onSubmit={handleSubmit}>
           <DialogContent dividers={scroll === "paper"}>
             <DialogContentText align="center" color="primary">
               {/* Schedule for {`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")} to ${moment(formData.end).format("MMMM Do YYYY, h:mm:ss a")}`} */}
               Schedule for{" "}
-              {`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")}`}
+              <b>{`${moment(formData.start).format("MMMM Do YYYY, h:mm:ss a")}`} </b>{" to "}
+              <b>{`${moment(formData.end).format("MMMM Do YYYY, h:mm:ss a")}`}</b>
             </DialogContentText>
             <Grid container spacing={3}>
               <Grid item xs={12} sm={12} md={6}>
