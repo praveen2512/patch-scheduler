@@ -51,7 +51,7 @@ export default function (state = initialState, action) {
   switch (type) {
     case "GET_EVENTS":
       return {
-        state,
+        ...state,
       };
     case "ADD_EVENT":
       return {

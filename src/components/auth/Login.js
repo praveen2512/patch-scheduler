@@ -1,7 +1,8 @@
-import React from "react";
+import React, {useState} from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import { Avatar, Button, Card, CardContent, Container, CssBaseline, TextField, Link, Grid, Box, Typography  } from "@material-ui/core";
 import LockOutlinedIcon from "@material-ui/icons/LockOutlined";
+import { useSelector, useDispatch } from "react-redux";
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -25,6 +26,22 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Login() {
   const classes = useStyles();
+  const errorMessage = useSelector((state) => state.authReducer.errorMessage);
+  const dispatch = useDispatch();
+
+  const [formData, setFormData] = useState({
+      email: "",
+      password: ""
+  });
+
+  const handleChange = (e) => {
+    setFormData({...formData, [e.target.name]: e.target.value});
+  }
+
+  const handleSubmit = (e) => {
+      e.preventDefault();
+      dispatch({ type: "LOGIN", payload: formData });
+  }
 
   return (
     <Container component="div" maxWidth="xs">
@@ -38,29 +55,38 @@ export default function Login() {
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <form className={classes.form} noValidate>
+            <form className={classes.form} onSubmit={handleSubmit}>
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
                 id="email"
-                label="Email Address"
                 name="email"
+                label="Email Address"
+                value={formData.email}
+                onChange={handleChange}
                 autoComplete="email"
                 autoFocus
+                required
               />
               <TextField
                 variant="outlined"
                 margin="normal"
                 required
                 fullWidth
-                name="password"
-                label="Password"
                 type="password"
                 id="password"
+                name="password"
+                label="Password"
+                value={formData.password}
+                onChange={handleChange}
                 autoComplete="current-password"
+                required
               />
+              {(errorMessage && errorMessage !== "") &&(
+                  <p className="red-text text-center">{errorMessage}</p>
+              )}
               <Button
                 type="submit"
                 fullWidth
