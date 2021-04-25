@@ -1,5 +1,5 @@
 import "./App.css";
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import { BrowserRouter as Router, Redirect, Route, Switch } from "react-router-dom";
 import { Box, Container } from "@material-ui/core";
 import { useSelector } from "react-redux";
 
@@ -11,7 +11,7 @@ import Copyright from "./components/Copyright";
 function App() {
   const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
 
-  if (!isLoggedIn) {
+  if (!sessionStorage.getItem("isLoggedIn")) {
     return <Login />;
   }
 
@@ -19,12 +19,10 @@ function App() {
     <div className="App">
       <Header />
       <Container className="mt-4">
-        <Router>
           <Switch>
             <Route path="/" exact component={Schedule} />
             <Route path="/login" exact component={Login} />
           </Switch>
-        </Router>
         <Box mt={8}>
           <Copyright />
         </Box>

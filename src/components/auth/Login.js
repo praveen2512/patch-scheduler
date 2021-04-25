@@ -65,7 +65,7 @@ export default function Login() {
     }
   };
 
-  if (isLoggedIn) {
+  if (sessionStorage.getItem("isLoggedIn")) {
     return <Redirect to="/" />;
   }
 

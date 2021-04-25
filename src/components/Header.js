@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import {
   AppBar,
@@ -17,8 +17,13 @@ import { ExitToApp, Menu } from "@material-ui/icons";
 
 function Header() {
   const isLoggedIn = useSelector((state) => state.authReducer.isLoggedIn);
-  const user = useSelector((state) => state.authReducer.user);
+  //const user = useSelector((state) => state.authReducer.user);
+  const [user, setUser] = useState({});
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    setUser(JSON.parse(sessionStorage.user));
+  }, []);
 
   const [open, setOpen] = useState(false);
 
@@ -36,9 +41,12 @@ function Header() {
           </IconButton>
           <Typography variant="h6">Patch Scheduler</Typography>
 
-          {isLoggedIn && (
+          {sessionStorage.getItem("isLoggedIn") && (
             <div className="flex center">
-              <Typography variant="h6" className="mr-3">{`${user.firstName} ${user.lastName}`}</Typography>
+              <Typography
+                variant="h6"
+                className="mr-3"
+              >{`${user.firstName} ${user.lastName}`}</Typography>
               <IconButton
                 edge="start"
                 color="inherit"

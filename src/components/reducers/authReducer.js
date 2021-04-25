@@ -12,13 +12,18 @@ export default (state = initialState, action) => {
   switch (type) {
     case "LOGIN":
       const user = users.find(u => u.email.toLowerCase() === action.payload.email.toLowerCase() && u.password === action.payload.password);
+      sessionStorage.setItem("user", user ? JSON.stringify(user) : {});
+      sessionStorage.setItem("isLoggedIn", user ? true : false);
       return {
         ...state,
         user: user ? user : {},
         isLoggedIn: user ? true : false,
         errorMessage: user ? "" : "Invalid username or password"
       }
-    case "LOGOUT": 
+    case "LOGOUT":
+      //sessionStorage.clear();
+      sessionStorage.setItem("user", {});
+      sessionStorage.setItem("isLoggedIn", false);
       return{
         ...state,
         user: {},
