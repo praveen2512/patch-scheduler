@@ -85,8 +85,8 @@ function Row(props) {
           {moment(row.start.toString()).format("MMMM Do YYYY, h:mm:ss a")}{" "}to{" "}
           {moment(row.end.toString()).format("MMMM Do YYYY, h:mm:ss a")}
         </TableCell>
-        <TableCell align="center">{row.approvalStatus}</TableCell>
         <TableCell align="center">{row.createdBy}</TableCell>
+        <TableCell align="center">{row.approvalStatus}</TableCell>
         {/* <TableCell align="center">{row.approverName}</TableCell> */}
         {/* <TableCell align="center">{row.approverEmail}</TableCell> */}
         {/* <TableCell align="center">
