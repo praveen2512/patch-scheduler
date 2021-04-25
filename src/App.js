@@ -1,11 +1,12 @@
 import "./App.css";
 import { BrowserRouter as Router, Route } from "react-router-dom";
-import { AppBar, Container, IconButton, Toolbar, Typography } from "@material-ui/core";
+import { AppBar, Box, Container, IconButton, Link, Toolbar, Typography } from "@material-ui/core";
 import {Menu} from '@material-ui/icons';
 import {Provider} from 'react-redux'
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 
 import Schedule from "./components/Schedule";
+import Login from './components/auth/Login'
 import {store} from './store';
 
 const theme = createMuiTheme({
@@ -13,10 +14,21 @@ const theme = createMuiTheme({
     primary: {
       main: '#003C4D',
       dark: "#002029"
-    },
-    
+    }, 
   }
 });
+
+function Copyright() {
+  return (
+    <Typography variant="body2" color="textSecondary" align="center">
+      {"Copyright © "}
+        Patch Scheduler
+      {" "}
+      {new Date().getFullYear()}
+      {"."}
+    </Typography>
+  );
+}
 
 function App() {
   return (
@@ -32,8 +44,12 @@ function App() {
           </Toolbar>
         </AppBar>
         <Router>
-          <Container>
+          <Container className="mt-4">
+            <Route path="/login" exact component={Login} />
             <Route path="/" exact component={Schedule} />
+            <Box mt={8}>
+              <Copyright />
+            </Box>
           </Container>
         </Router>
       </div>

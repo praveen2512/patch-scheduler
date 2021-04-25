@@ -75,7 +75,7 @@ function Row(props) {
         <TableCell align="center">{row.server}</TableCell>
         <TableCell align="center">{row.osVersion}</TableCell>
         <TableCell align="center">
-          {moment(row.start.toString()).format("MMMM Do YYYY, h:mm:ss a")} to
+          {moment(row.start.toString()).format("MMMM Do YYYY, h:mm:ss a")}{" "}to{" "}
           {moment(row.end.toString()).format("MMMM Do YYYY, h:mm:ss a")}
         </TableCell>
         <TableCell align="center">{row.approvalStatus}</TableCell>
